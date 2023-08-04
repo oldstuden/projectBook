@@ -1,0 +1,13 @@
+.category-list {
+  list-style: none;
+  text-transform: capitalize;
+  max-width: 350px;
+}
+.category-list > li:hover {
+  text-transform: uppercase;
+  color: blue;
+}
+.js-add-list {
+  list-style: none;
+  display: flex;
+}
