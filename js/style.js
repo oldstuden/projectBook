@@ -57,12 +57,12 @@ serviceCategory()
   .catch((err) => console.log(err));
 
 function onClick(evt) {
-  const result = evt.target.textContent;
+  let result = evt.target.textContent;
+  result = result.trimStart();
 
   serviceThisCategory(result)
     .then((data) => {
-      console.log(typeof result);
-      listBook.insertAdjacentHTML('beforeend', createNewBooks(data));
+      listBook.innerHTML = createBooks(data);
     })
     .catch((err) => console.log(err));
 }
@@ -70,11 +70,11 @@ function onClick(evt) {
 function createMarcup(arr) {
   return arr
     .map(
-      ({ books: [{ _id, list_name }] }) => `
-  <li class="js-item" data-id="${_id}">
-        <h3>${list_name}</h3>
-        <ul class="js-add-list"></ul>
-        <button type="button">See more</button>
+      ({ books: [{ list_name }] }) => `
+  <li class="js-item item-list">
+        <h3 class="category-name">${list_name}</h3>
+        <ul class="category-menu js-add-list"></ul>
+        <button class="see-more-btn" type="button">See more</button>
       </li>`
     )
     .join('');
@@ -101,10 +101,10 @@ function createBooks(arr) {
   return arr
     .map(
       ({ _id, book_image, author, title }) =>
-        `<li class="js-book-item" data-id="${_id}" >
-        <img src="${book_image}" alt="${title}">
-    <h3>${title}</h3>
-    <p>${author}</p>
+        `<li class="item-image js-book-item" data-id="${_id}" >
+        <img class="book-image" src="${book_image}" width="335" height="485" alt="${title}">
+    <h3 class="book-title">${title}</h3>
+    <p class="author-name">${author}</p>
       </li>`
     )
     .join('');
